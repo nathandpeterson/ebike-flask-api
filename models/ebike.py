@@ -1,4 +1,5 @@
-from db import db
+from app import db
+from sqlalchemy.dialects.postgresql import JSON
 
 class EbikeModel(db.Model):
 

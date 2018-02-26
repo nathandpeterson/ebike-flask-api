@@ -2,9 +2,9 @@ import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_restful import Api
-from flask_jwt import JWT
+# from flask_jwt import JWT
 
-# from resources.ebike import Ebike
+from resources.ebike import Ebike
 
 app = Flask(__name__)
 
