@@ -16,15 +16,17 @@ db = SQLAlchemy(app)
 
 api = Api(app)
 
-@app.route('/')
-def hello():
-    return 'Hello World!'
-
 @app.before_first_request
 def create_tables():
     db.create_all()
 
-# api.add_resource(Ebike, '/ebike/<string:name>')
+api.add_resource(Ebike, '/ebike/<string:name>')
+
+@app.route('/')
+def hello():
+    return 'You hit the root route!'
 
 if __name__ == '__main__':
+    from db import db
+    db.init_app(app)
     app.run(port=5000, debug=True)

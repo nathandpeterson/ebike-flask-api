@@ -1,5 +1,6 @@
-from app import db
 from sqlalchemy.dialects.postgresql import JSON
+from flask_sqlalchemy import SQLAlchemy
+from db import db
 
 class EbikeModel(db.Model):
 
@@ -18,11 +19,9 @@ class EbikeModel(db.Model):
 
     @classmethod
     def find_by_name(cls, name):
-        # select * from tablename where name = name
         return cls.query.filter_by(name=name).first()
 
     def save_to_db(self):
-        # 'INSERT INTO items VALUES(?,?)'
         db.session.add(self)
         db.session.commit()
 
