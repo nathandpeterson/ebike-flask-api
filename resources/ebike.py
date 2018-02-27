@@ -33,4 +33,20 @@ class Ebike(Resource):
         if ebike:
             ebike.delete_from_db()
         return {'message': 'item has been deleted'}
+    
+    def put(self, name):
+        data = Ebike.parser.parse_args()
+
+        ebike = EbikeModel.find_by_name(name)
+
+        if ebike == None:
+            ebike = EbikeModel(name, **data)
+        else:
+            ebike.price = data['price']
+
+        ebike.save_to_db()
+
+        return ebike.json()
+
+    
    
