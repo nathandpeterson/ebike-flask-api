@@ -4,7 +4,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_restful import Api
 # from flask_jwt import JWT
 
-from resources.ebike import Ebike
+from resources.ebike import Ebike, EbikeList
+from resources.user import User
 
 app = Flask(__name__)
 
@@ -21,6 +22,8 @@ def create_tables():
     db.create_all()
 
 api.add_resource(Ebike, '/ebike/<string:name>')
+api.add_resource(EbikeList, '/ebikes')
+api.add_resource(User, '/user/<string:email>')
 
 @app.route('/')
 def hello():

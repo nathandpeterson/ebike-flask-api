@@ -7,6 +7,9 @@ class Ebike(Resource):
                         type=float,
                         required=True,
                         help="This field cannot be left blank")
+    parser.add_argument('source',
+                        required=True,
+                        help="This field cannot be left blank")
 
     def get(self, name):
         ebike = EbikeModel.find_by_name(name)
@@ -48,5 +51,7 @@ class Ebike(Resource):
 
         return ebike.json()
 
-    
+class EbikeList(Resource):
+    def get(self):
+        return {'ebikes': list(map(lambda x: x.json(), EbikeModel.query.all())) }
    
