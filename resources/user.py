@@ -29,3 +29,10 @@ class User(Resource):
         except:
             return {'message': 'something went wrong'}, 500
         return user.json(), 201
+
+class UserList(Resource):
+    # Fetch a list of users, for development purposes or admin access only.
+    def get(self):
+        use = UserModel.query.all()
+        print('hey!', use)
+        return {'users': list(map(lambda x: x.json(), UserModel.query.all())) }

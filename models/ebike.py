@@ -28,6 +28,5 @@ class EbikeModel(db.Model):
         db.session.commit()
 
     def delete_from_db(self):
-        # UPDATE items SET price=? WHERE name=?
         db.session.delete(self)
         db.session.commit()

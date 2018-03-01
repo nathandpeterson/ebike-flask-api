@@ -1,5 +1,5 @@
-from sqlalchemy.dialects.postgresql import JSON
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.dialects.postgresql import JSON
 from db import db
 
 class UserModel(db.Model):
@@ -11,6 +11,8 @@ class UserModel(db.Model):
     last_name = db.Column(db.String(80))
     password = db.Column(db.String(80))
     email = db.Column(db.String(80))
+    
+    ebikes = db.Column(db.Integer, db.ForeignKey('ebikes.id'))
 
     def __init__(self, email, first_name, last_name, password):
         self.email = email
