@@ -1,5 +1,5 @@
-from sqlalchemy.dialects.postgresql import JSON
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.dialects.postgresql import JSON
 from db import db
 
 class EbikeModel(db.Model):

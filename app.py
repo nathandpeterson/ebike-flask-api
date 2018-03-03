@@ -6,6 +6,7 @@ from flask_restful import Api
 
 from resources.ebike import Ebike, EbikeList
 from resources.user import User, UserList
+from resources.user_ebike import UserEbikes
 
 app = Flask(__name__)
 
@@ -23,6 +24,7 @@ def create_tables():
 
 api.add_resource(Ebike, '/ebike/<string:name>')
 api.add_resource(EbikeList, '/ebikes')
+api.add_resource(UserEbikes, '/user/<string:email>/ebikes')
 api.add_resource(User, '/user/<string:email>')
 api.add_resource(UserList, '/users')
 
