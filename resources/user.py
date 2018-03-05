@@ -1,6 +1,7 @@
 from flask_restful import Resource, reqparse
 from models.user import UserModel
 
+
 class User(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('first_name',
@@ -26,12 +27,12 @@ class User(Resource):
         user = UserModel(email, data['first_name'], data['last_name'], data['password'])
         try:
             user.save_to_db()
-        except:
+        except SystemError:
             return {'message': 'something went wrong'}, 500
         return {'message': 'Account created for ' + data['first_name']}, 201
+
 
 class UserList(Resource):
     # Fetch a list of users, for development purposes or admin access only.
     def get(self):
-        use = UserModel.query.all()
-        return {'users': list(map(lambda x: x.json(), UserModel.query.all())) }
+        return {'users': list(map(lambda x: x.json(), UserModel.query.all()))}

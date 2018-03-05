@@ -1,4 +1,7 @@
 {
-    "python.linting.enabled": false,
-    "python.pythonPath": "${env.PYTHONPATH}/venv/bin/python"
+"python.linting.enabled": true,
+"python.pythonPath": "/usr/local/bin/python3",
+"python.linting.pylintEnabled": false,
+"python.linting.mypyEnabled": false,
+"python.linting.flake8Enabled": true
 }

@@ -1,6 +1,7 @@
 from flask_restful import Resource, reqparse
 from models.ebike import EbikeModel
 
+
 class Ebike(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('price',
@@ -26,13 +27,13 @@ class Ebike(Resource):
         ebike = EbikeModel(name, **data)
         try:
             ebike.save_to_db()
-        except:
+        except SystemError:
             return {'message': 'an error occurred'}, 500
 
         return ebike.json(), 201
 
     def delete(self, name):
-        ebike =  EbikeModel.find_by_name(name)
+        ebike = EbikeModel.find_by_name(name)
         if ebike:
             ebike.delete_from_db()
         return {'message': 'item has been deleted'}
@@ -42,7 +43,7 @@ class Ebike(Resource):
 
         ebike = EbikeModel.find_by_name(name)
 
-        if ebike == None:
+        if ebike is None:
             ebike = EbikeModel(name, **data)
         else:
             ebike.price = data['price']
@@ -50,6 +51,7 @@ class Ebike(Resource):
         ebike.save_to_db()
 
         return ebike.json()
+
 
 class EbikeList(Resource):
     def get(self):

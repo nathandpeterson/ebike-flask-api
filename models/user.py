@@ -1,7 +1,6 @@
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.dialects.postgresql import JSON
 from db import db
 from models.user_ebike import UserEbikeModel
+
 
 class UserModel(db.Model):
 
