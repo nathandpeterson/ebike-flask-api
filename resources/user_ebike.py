@@ -1,6 +1,8 @@
 from flask_restful import Resource, reqparse
 from models.user_ebike import UserEbikeModel
+from models.ebike import EbikeModel
 from models.user import UserModel
+from db import db
 
 
 class UserEbikes(Resource):
@@ -11,18 +13,20 @@ class UserEbikes(Resource):
                         help="This field cannot be left blank")
 
     def get(self, email):
-        # Method should get all ebikes for a user
-        return {'this is you?': email}
+        user = UserModel.find_by_email(email)
+        # This query is returning an error, still working on it.
+        x = user.query.filter(user.wishlist.any()).all()
+        return {'user': ''}
 
     def post(self, email):
         data = UserEbikes.parser.parse_args()
-        user_data = UserModel.find_by_email(email).json()
-        if not user_data:
+        user = UserModel.find_by_email(email)
+        if not user:
             return {'message': 'no such user'}, 404
-        user_id = user_data['id']
-        user_ebike_data = UserEbikeModel(user_id, data['ebike_id'])
+        ebike = EbikeModel.find_by_id(data['ebike_id'])
         try:
-            user_ebike_data.save_to_db()
-        except EnvironmentError:
+            user.wishlist.append(ebike)
+            db.session.commit()
+        except SystemError:
             return {'message': 'something went wrong'}, 500
         return {'message': 'success'}

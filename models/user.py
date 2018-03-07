@@ -1,5 +1,9 @@
 from db import db
-from models.user_ebike import UserEbikeModel
+
+wishlist = db.Table('wishlist',
+    db.Column('user_id', db.Integer, db.ForeignKey('users.id')),
+    db.Column('ebike_id', db.Integer, db.ForeignKey('ebikes.id'))
+)
 
 
 class UserModel(db.Model):
@@ -11,6 +15,7 @@ class UserModel(db.Model):
     last_name = db.Column(db.String(80))
     password = db.Column(db.String(80))
     email = db.Column(db.String(80))
+    wishlist = db.relationship('EbikeModel', secondary=wishlist)
 
     def __init__(self, email, first_name, last_name, password):
         self.email = email

@@ -29,12 +29,6 @@ api.add_resource(UserEbikes, '/user/<string:email>/ebikes')
 api.add_resource(User, '/user/<string:email>')
 api.add_resource(UserList, '/users')
 
-
-@app.route('/')
-def hello():
-    return 'You hit the root route!'
-
-
 if __name__ == '__main__':
     from db import db
     db.init_app(app)

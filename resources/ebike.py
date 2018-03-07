@@ -55,5 +55,5 @@ class Ebike(Resource):
 
 class EbikeList(Resource):
     def get(self):
-        return {'ebikes': list(map(lambda x: x.json(), EbikeModel.query.all())) }
+        return {'ebikes': list(map(lambda x: x.json(), EbikeModel.query.all()))}
    
