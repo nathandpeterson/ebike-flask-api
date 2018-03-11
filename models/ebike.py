@@ -1,4 +1,5 @@
 from db import db
+from models.user import user_bike
 
 
 class EbikeModel(db.Model):
@@ -9,6 +10,7 @@ class EbikeModel(db.Model):
     name = db.Column(db.String(80))
     price = db.Column(db.Float(precision=2))
     source = db.Column(db.String(120))
+    users = db.relationship('UserModel', secondary=user_bike, back_populates='ebikes')
 
     def __init__(self, name, price, source):
         self.name = name

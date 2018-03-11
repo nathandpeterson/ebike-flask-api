@@ -1,6 +1,6 @@
 from db import db
 
-wishlist = db.Table('wishlist',
+user_bike = db.Table('user_bike',
     db.Column('user_id', db.Integer, db.ForeignKey('users.id')),
     db.Column('ebike_id', db.Integer, db.ForeignKey('ebikes.id'))
 )
@@ -15,7 +15,7 @@ class UserModel(db.Model):
     last_name = db.Column(db.String(80))
     password = db.Column(db.String(80))
     email = db.Column(db.String(80))
-    wishlist = db.relationship('EbikeModel', secondary=wishlist)
+    ebikes = db.relationship('EbikeModel', secondary=user_bike, back_populates='users')
 
     def __init__(self, email, first_name, last_name, password):
         self.email = email

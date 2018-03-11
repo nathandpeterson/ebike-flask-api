@@ -1,5 +1,4 @@
 from flask_restful import Resource, reqparse
-from models.user_ebike import UserEbikeModel
 from models.ebike import EbikeModel
 from models.user import UserModel
 from db import db
@@ -14,9 +13,9 @@ class UserEbikes(Resource):
 
     def get(self, email):
         user = UserModel.find_by_email(email)
-        # This query is returning an error, still working on it.
-        x = user.query.filter(user.wishlist.any()).all()
-        return {'user': ''}
+        ebikes = user.ebikes
+        json = list(map(lambda x: x.json(), ebikes))
+        return {'ebikes': json}
 
     def post(self, email):
         data = UserEbikes.parser.parse_args()
@@ -25,8 +24,8 @@ class UserEbikes(Resource):
             return {'message': 'no such user'}, 404
         ebike = EbikeModel.find_by_id(data['ebike_id'])
         try:
-            user.wishlist.append(ebike)
+            user.ebikes.append(ebike)
             db.session.commit()
         except SystemError:
             return {'message': 'something went wrong'}, 500
-        return {'message': 'success'}
+        return {'message': 'ebike added to user'}
