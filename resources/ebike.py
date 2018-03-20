@@ -8,7 +8,13 @@ class Ebike(Resource):
                         type=float,
                         required=True,
                         help="This field cannot be left blank")
-    parser.add_argument('source',
+    parser.add_argument('brand',
+                        required=True,
+                        help="This field cannot be left blank")
+    parser.add_argument('source_url',
+                        required=True,
+                        help="This field cannot be left blank")
+    parser.add_argument('img_url',
                         required=True,
                         help="This field cannot be left blank")
 
