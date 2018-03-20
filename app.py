@@ -1,5 +1,6 @@
 import os
 from flask import Flask
+from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_restful import Api
 
@@ -8,6 +9,7 @@ from resources.user import User, UserList
 from resources.user_ebike import UserEbikes
 
 app = Flask(__name__)
+CORS(app)
 
 app.secret_key = 'secret'
 
